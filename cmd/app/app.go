@@ -1,24 +1,30 @@
 package main
 
 import (
-	"found-backend/internal/infra/config"
+	router "found-backend/internal"
+	"found-backend/internal/infra"
 	"found-backend/internal/infra/storage/mysql"
 	"log"
+
+	"go.uber.org/fx"
 )
 
 func main() {
-	cfg, err := config.NewConfig(".env.toml")
-	if err != nil {
-		log.Panicf("failed to new config: %v\n", err)
-	}
+	fx.New(
+		fx.Supply(".env.toml"),
+		fx.Provide(
+			router.NewRouter,
+		),
+		infra.ConfigModule,
+		infra.StorageModule,
 
-	mysql, err := mysql.NewMySQL(cfg)
-	if err != nil {
-		log.Panicf("failed to new mysql: %v\n", err)
-	}
-
-	err = mysql.AutoMigration()
-	if err != nil {
-		log.Panicf("failed to auto migration: %v\n", err)
-	}
+		fx.Invoke(
+			func(m *mysql.MySQL) {
+				if err := m.AutoMigration(); err != nil {
+					log.Panicf("failed to auto migration: %v\n", err)
+				}
+			},
+			func(r *router.Router) {},
+		),
+	).Run()
 }
