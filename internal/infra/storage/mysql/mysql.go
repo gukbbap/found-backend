@@ -9,7 +9,7 @@ import (
 )
 
 type MySQL struct {
-	db *gorm.DB
+	*gorm.DB
 }
 
 func NewMySQL(config *config.Config) (*MySQL, error) {
@@ -29,6 +29,6 @@ func NewMySQL(config *config.Config) (*MySQL, error) {
 	}
 
 	return &MySQL{
-		db: openedDB,
+		DB: openedDB,
 	}, nil
 }
