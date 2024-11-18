@@ -1,7 +1,12 @@
 package exception
 
 const (
-	// 웹 라이브라리 에러(WEBSERVER_)
-	ErrWebServerInternal = "WEBSERVER_INTERNAL_ERROR" // 웹 서버 내부 에러
-	ErrWebServerValidate = "WEBSERVER_VALIDATION"     // 웹 서버 유효성 검사 실패
+	// MySQL 관련 에러 (MYSQL_)
+	ErrMySQLInternal    = "MYSQL_INTERNAL_ERROR"       // 내부 MySQL 에러
+	ErrMySQLDuplicate   = "MYSQL_DUPLICATE_ENTRY"      // 중복 데이터
+	ErrMySQLConstraint  = "MYSQL_CONSTRAINT_VIOLATION" // 제약조건 위반
+	ErrMySQLNotFound    = "MYSQL_NOT_FOUND"            // 데이터 없음
+	ErrMySQLNotLoaded   = "MYSQL_NOT_LOADED"           // 데이터 리로드 실패
+	ErrMySQLNotSingular = "MYSQL_NOT_SINGULAR"         // 단일 데이터가 아님
+	ErrMySQLValidation  = "MYSQL_VALIDATION_FAILED"    // 데이터 유효성 검사 실패
 )
