@@ -1,16 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"found-backend/internal/infra/config"
+	"found-backend/internal/infra/storage/mysql"
 	"log"
 )
 
 func main() {
-	found, err := config.NewConfig(".env.toml")
+	cfg, err := config.NewConfig(".env.toml")
 	if err != nil {
 		log.Panicf("failed to new config: %v\n", err)
 	}
 
-	fmt.Println("config struct: ", found)
+	mysql, err := mysql.NewMySQL(cfg)
+	if err != nil {
+		log.Panicf("failed to new mysql: %v\n", err)
+	}
+
+	err = mysql.AutoMigration()
+	if err != nil {
+		log.Panicf("failed to auto migration: %v\n", err)
+	}
 }
