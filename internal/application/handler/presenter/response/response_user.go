@@ -56,3 +56,17 @@ func NewUpdateUserResponse(user *entity.User) *UpdateUserResponse {
 		UpdatedAt: user.UpdatedAt,
 	}
 }
+
+type DeleteUserResponse struct {
+	UID   string `json:"uid"`
+	Email string `json:"email"`
+	Name  string `json:"name"`
+}
+
+func NewDeleteUserResponse(user *entity.User) *DeleteUserResponse {
+	return &DeleteUserResponse{
+		UID:   user.UID,
+		Email: user.Email,
+		Name:  user.Name,
+	}
+}

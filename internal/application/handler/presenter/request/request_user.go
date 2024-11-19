@@ -42,3 +42,13 @@ func (r UpdateUserRequest) ToEntity() *entity.User {
 		Password: r.CurrentPassword,
 	}
 }
+
+type DeleteUserRequest struct {
+	ID int `param:"id"`
+}
+
+func (r DeleteUserRequest) ToEntity() *entity.User {
+	return &entity.User{
+		ID: r.ID,
+	}
+}
