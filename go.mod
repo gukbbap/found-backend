@@ -6,6 +6,7 @@ require (
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/pelletier/go-toml/v2 v2.2.3
 	go.uber.org/fx v1.23.0
+	golang.org/x/crypto v0.29.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
@@ -24,8 +25,7 @@ require (
 	go.uber.org/dig v1.18.0 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
-	golang.org/x/crypto v0.22.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
-	golang.org/x/sys v0.19.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/sys v0.27.0 // indirect
+	golang.org/x/text v0.20.0 // indirect
 )
