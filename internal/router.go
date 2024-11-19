@@ -48,7 +48,7 @@ func NewRouter(
 				return nil
 			},
 			OnStop: func(ctx context.Context) error {
-				return nil
+				return r.engine.Shutdown(ctx)
 			},
 		},
 	)
