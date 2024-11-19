@@ -73,3 +73,43 @@ func (r UserRepository) DeleteUser(ctx context.Context, id int) error {
 
 	return nil
 }
+
+func (r UserRepository) GetLetters(ctx context.Context, userID int) ([]entity.Letter, error) {
+	var foundUser entity.User
+	err := r.db.Model(&foundUser).Association("Letters").Error
+	if err != nil {
+		return nil, exception.Wrap(
+			err,
+			exception.ErrMySQLInternal,
+			exception.StatusInternalServerError,
+			"해당 사용자의 letters를 가져올 수 없습니다.",
+			exception.WithData(
+				exception.Map{
+					"userID": userID,
+				},
+			),
+		)
+	}
+
+	return foundUser.Letters, nil
+}
+
+func (r UserRepository) GetFeelings(ctx context.Context, userID int) ([]entity.Feeling, error) {
+	var foundUser entity.User
+	err := r.db.Model(&foundUser).Association("Feelings").Error
+	if err != nil {
+		return nil, exception.Wrap(
+			err,
+			exception.ErrMySQLInternal,
+			exception.StatusInternalServerError,
+			"해당 사용자의 feelings 가져올 수 없습니다.",
+			exception.WithData(
+				exception.Map{
+					"userID": userID,
+				},
+			),
+		)
+	}
+
+	return foundUser.Feelings, nil
+}
