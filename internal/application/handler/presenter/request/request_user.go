@@ -17,3 +17,13 @@ func (r CreateUserRequest) ToEntity() *entity.User {
 		Name:     r.Name,
 	}
 }
+
+type FindUserRequest struct {
+	ID int `param:"id"`
+}
+
+func (r FindUserRequest) ToEntity() *entity.User {
+	return &entity.User{
+		ID: r.ID,
+	}
+}

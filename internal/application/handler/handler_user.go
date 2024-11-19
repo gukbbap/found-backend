@@ -45,7 +45,17 @@ func (h UserHandler) CreateUser(c echo.Context) error {
 }
 
 func (h UserHandler) FindUser(c echo.Context) error {
-	return nil
+	req, err := utils.ParseRequest[request.FindUserRequest](c)
+	if err != nil {
+		return err
+	}
+
+	foundUser, err := h.userService.FindUser(c.Request().Context(), req.ID)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, response.NewFindUserResponse(foundUser))
 }
 
 func (h UserHandler) UpdateUser(e echo.Context) error {
