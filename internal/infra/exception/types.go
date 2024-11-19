@@ -9,4 +9,8 @@ const (
 	ErrMySQLNotLoaded   = "MYSQL_NOT_LOADED"           // 데이터 리로드 실패
 	ErrMySQLNotSingular = "MYSQL_NOT_SINGULAR"         // 단일 데이터가 아님
 	ErrMySQLValidation  = "MYSQL_VALIDATION_FAILED"    // 데이터 유효성 검사 실패
+
+	// Service 관련 에러 (SERVICE_)
+
+	ErrServiceFailedHashPassword = "SERVICE_FAILED_HASH_PASSWORD"
 )
