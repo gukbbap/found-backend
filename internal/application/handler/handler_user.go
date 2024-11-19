@@ -81,8 +81,18 @@ func (h UserHandler) UpdateUser(c echo.Context) error {
 	)
 }
 
-func (h UserHandler) DeleteUser(e echo.Context) error {
-	return nil
+func (h UserHandler) DeleteUser(c echo.Context) error {
+	req, err := utils.ParseRequest[request.DeleteUserRequest](c)
+	if err != nil {
+		return err
+	}
+
+	err = h.userService.DeleteUser(c.Request().Context(), req.ID)
+	if err != nil {
+		return err
+	}
+
+	return c.NoContent(http.StatusNoContent)
 }
 
 func (h UserHandler) GetLetters(e echo.Context) error {
