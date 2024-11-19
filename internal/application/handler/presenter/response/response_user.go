@@ -38,3 +38,21 @@ func NewFindUserResponse(user *entity.User) *FindUserResponse {
 		UpdatedAt: user.UpdatedAt,
 	}
 }
+
+type UpdateUserResponse struct {
+	UID       string    `json:"uid"`
+	Email     string    `json:"email"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+}
+
+func NewUpdateUserResponse(user *entity.User) *UpdateUserResponse {
+	return &UpdateUserResponse{
+		UID:       user.UID,
+		Email:     user.Email,
+		Name:      user.Name,
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt,
+	}
+}

@@ -27,3 +27,18 @@ func (r FindUserRequest) ToEntity() *entity.User {
 		ID: r.ID,
 	}
 }
+
+type UpdateUserRequest struct {
+	ID              int    `param:"id"`
+	UID             string `json:"uid"`
+	CurrentPassword string `json:"currentPassword"`
+	NewPassword     string `json:"newPassword"`
+}
+
+func (r UpdateUserRequest) ToEntity() *entity.User {
+	return &entity.User{
+		ID:       r.ID,
+		UID:      r.UID,
+		Password: r.CurrentPassword,
+	}
+}
