@@ -12,6 +12,7 @@ const (
 
 	// Service 관련 에러 (SERVICE_)
 	ErrServiceFailedHashPassword = "SERVICE_FAILED_HASH_PASSWORD"
+	ErrServiceMismatchPassword   = "SERVICE_MISMATCH_PASSWORD"
 
 	// Presenter 관련 에러 (PRESENTER_)
 	ErrPresenterFailedBind       = "PRESENTER_FAILED_BIND"
