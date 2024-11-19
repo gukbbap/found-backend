@@ -11,7 +11,7 @@ type FeelingRepository struct {
 	db *mysql.MySQL
 }
 
-func newFeelingRepository(db *mysql.MySQL) *FeelingRepository {
+func NewFeelingRepository(db *mysql.MySQL) *FeelingRepository {
 	return &FeelingRepository{
 		db: db,
 	}
