@@ -1,0 +1,19 @@
+package request
+
+import "found-backend/internal/application/entity"
+
+type CreateUserRequest struct {
+	UID      string `json:"uid" validate:"required,min=4,max=20,alphanum"`
+	Password string `json:"password" validate:"required,min=8,max=32"`
+	Email    string `json:"email" validate:"required,email"`
+	Name     string `json:"name" validate:"required,min=2,max=50"`
+}
+
+func (r CreateUserRequest) ToEntity() *entity.User {
+	return &entity.User{
+		UID:      r.UID,
+		Password: r.Password,
+		Email:    r.Email,
+		Name:     r.Name,
+	}
+}

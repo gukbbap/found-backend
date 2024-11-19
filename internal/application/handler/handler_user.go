@@ -1,7 +1,11 @@
 package handler
 
 import (
+	"found-backend/internal/application/handler/presenter/request"
+	"found-backend/internal/application/handler/presenter/response"
+	"found-backend/internal/application/handler/utils"
 	"found-backend/internal/application/service"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -27,7 +31,17 @@ func (h UserHandler) Route(g *echo.Group) {
 }
 
 func (h UserHandler) CreateUser(c echo.Context) error {
-	return nil
+	req, err := utils.ParseRequest[request.CreateUserRequest](c)
+	if err != nil {
+		return err
+	}
+
+	createdUser, err := h.userService.CreateUser(c.Request().Context(), req.ToEntity())
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusCreated, response.NewCreateUserResponse(createdUser))
 }
 
 func (h UserHandler) FindUser(c echo.Context) error {
