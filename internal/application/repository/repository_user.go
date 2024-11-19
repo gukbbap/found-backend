@@ -76,7 +76,7 @@ func (r UserRepository) DeleteUser(ctx context.Context, id int) error {
 
 func (r UserRepository) GetLetters(ctx context.Context, userID int) ([]entity.Letter, error) {
 	var foundUser entity.User
-	err := r.db.Model(&foundUser).Association("Letters").Error
+	err := r.db.WithContext(ctx).Model(&foundUser).Association("Letters").Error
 	if err != nil {
 		return nil, exception.Wrap(
 			err,
@@ -96,7 +96,7 @@ func (r UserRepository) GetLetters(ctx context.Context, userID int) ([]entity.Le
 
 func (r UserRepository) GetFeelings(ctx context.Context, userID int) ([]entity.Feeling, error) {
 	var foundUser entity.User
-	err := r.db.Model(&foundUser).Association("Feelings").Error
+	err := r.db.WithContext(ctx).Model(&foundUser).Association("Feelings").Error
 	if err != nil {
 		return nil, exception.Wrap(
 			err,
