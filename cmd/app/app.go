@@ -2,6 +2,7 @@ package main
 
 import (
 	router "found-backend/internal"
+	"found-backend/internal/application"
 	"found-backend/internal/infra"
 	"found-backend/internal/infra/storage/mysql"
 	"log"
@@ -15,8 +16,15 @@ func main() {
 		fx.Provide(
 			router.NewRouter,
 		),
+
+		// infra modules
 		infra.ConfigModule,
 		infra.StorageModule,
+
+		// application modules
+		application.RepositoryModule,
+		application.ServiceModule,
+		application.HandlerModule,
 
 		fx.Invoke(
 			func(m *mysql.MySQL) {
