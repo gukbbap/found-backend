@@ -14,6 +14,8 @@ type Config struct {
 		Port     string
 		Schema   string
 	}
+
+	Port string
 }
 
 func NewConfig(path string) (*Config, error) {
