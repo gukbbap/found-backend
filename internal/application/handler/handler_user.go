@@ -41,7 +41,10 @@ func (h UserHandler) CreateUser(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusCreated, response.NewCreateUserResponse(createdUser))
+	return c.JSON(
+		http.StatusCreated,
+		response.NewCreateUserResponse(createdUser),
+	)
 }
 
 func (h UserHandler) FindUser(c echo.Context) error {
@@ -55,7 +58,10 @@ func (h UserHandler) FindUser(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, response.NewFindUserResponse(foundUser))
+	return c.JSON(
+		http.StatusOK,
+		response.NewFindUserResponse(foundUser),
+	)
 }
 
 func (h UserHandler) UpdateUser(c echo.Context) error {
@@ -69,7 +75,10 @@ func (h UserHandler) UpdateUser(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, response.NewUpdateUserResponse(updatedUser))
+	return c.JSON(
+		http.StatusOK,
+		response.NewUpdateUserResponse(updatedUser),
+	)
 }
 
 func (h UserHandler) DeleteUser(e echo.Context) error {
