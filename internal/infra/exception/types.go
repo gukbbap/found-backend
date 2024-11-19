@@ -11,6 +11,9 @@ const (
 	ErrMySQLValidation  = "MYSQL_VALIDATION_FAILED"    // 데이터 유효성 검사 실패
 
 	// Service 관련 에러 (SERVICE_)
-
 	ErrServiceFailedHashPassword = "SERVICE_FAILED_HASH_PASSWORD"
+
+	// Presenter 관련 에러 (PRESENTER_)
+	ErrPresenterFailedBind       = "PRESENTER_FAILED_BIND"
+	ErrPresenterFailedValidation = "PRESENTER_FAILED_VALIDATION"
 )
