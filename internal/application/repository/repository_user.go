@@ -5,6 +5,7 @@ import (
 	"found-backend/internal/application/entity"
 	"found-backend/internal/infra/exception"
 	"found-backend/internal/infra/storage/mysql"
+	"found-backend/pkg/defaults"
 )
 
 type UserRepository struct {
@@ -47,7 +48,27 @@ func (r UserRepository) FindUser(ctx context.Context, id int) (*entity.User, err
 }
 
 func (r UserRepository) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
-	err := r.db.WithContext(ctx).Save(user).Error
+	// Partial Update
+	updateFields := map[string]any{}
+
+	// 업데이트를 위한 필드 검사
+	if user.UID != defaults.String {
+		updateFields["uid"] = user.UID
+	}
+
+	if user.Password != defaults.String {
+		updateFields["password"] = user.Password
+	}
+
+	if user.Email != defaults.String {
+		updateFields["email"] = user.Email
+	}
+
+	if user.Name != defaults.String {
+		updateFields["name"] = user.Name
+	}
+
+	err := r.db.Model(new(entity.User)).Where("id = ?", user.ID).Updates(updateFields).Error
 	if err != nil {
 		return nil, exception.Wrap(
 			err,
