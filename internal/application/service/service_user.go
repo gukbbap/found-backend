@@ -47,7 +47,38 @@ func (s UserService) FindUser(ctx context.Context, id int) (*entity.User, error)
 	return foundUser, nil
 }
 
-func (s UserService) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
+func (s UserService) UpdateUser(ctx context.Context, user *entity.User, newPassword string) (*entity.User, error) {
+
+	if newPassword != "" {
+		// 기존의 hashed 비밀번호 조회
+		foundUser, err := s.userRepository.FindUser(ctx, user.ID)
+		if err != nil {
+			return nil, err
+		}
+
+		err = encrypt.VerifyPassword(user.Password, foundUser.Password)
+		if err != nil {
+			return nil, exception.Wrap(
+				err,
+				exception.ErrServiceMismatchPassword,
+				exception.StatusBadRequest,
+				"비밀번호가 일치하지 않습니다.",
+			)
+		}
+
+		hashedNewPassword, err := encrypt.HashPassword(newPassword)
+		if err != nil {
+			return nil, exception.Wrap(
+				err,
+				exception.ErrServiceFailedHashPassword,
+				exception.StatusInternalServerError,
+				"새로운 패스워드를 해쉬할 수 없습니다.",
+			)
+		}
+
+		user.Password = hashedNewPassword
+	}
+
 	updatedUser, err := s.userRepository.UpdateUser(ctx, user)
 	if err != nil {
 		return nil, err
