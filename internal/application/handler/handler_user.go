@@ -58,8 +58,18 @@ func (h UserHandler) FindUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, response.NewFindUserResponse(foundUser))
 }
 
-func (h UserHandler) UpdateUser(e echo.Context) error {
-	return nil
+func (h UserHandler) UpdateUser(c echo.Context) error {
+	req, err := utils.ParseRequest[request.UpdateUserRequest](c)
+	if err != nil {
+		return err
+	}
+
+	updatedUser, err := h.userService.UpdateUser(c.Request().Context(), req.ToEntity(), req.NewPassword)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, response.NewUpdateUserResponse(updatedUser))
 }
 
 func (h UserHandler) DeleteUser(e echo.Context) error {
