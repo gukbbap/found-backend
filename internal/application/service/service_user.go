@@ -64,3 +64,21 @@ func (s UserService) DeleteUser(ctx context.Context, id int) error {
 
 	return nil
 }
+
+func (s UserService) GetLetters(ctx context.Context, userID int) ([]entity.Letter, error) {
+	gotLetters, err := s.userRepository.GetLetters(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return gotLetters, nil
+}
+
+func (s UserService) GetFeelings(ctx context.Context, userID int) ([]entity.Feeling, error) {
+	gotFeelings, err := s.userRepository.GetFeelings(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return gotFeelings, nil
+}
