@@ -52,3 +52,13 @@ func (r DeleteUserRequest) ToEntity() *entity.User {
 		ID: r.ID,
 	}
 }
+
+type GetLettersRequest struct {
+	UserID int `param:"id"`
+}
+
+func (r GetLettersRequest) ToEntity() *entity.User {
+	return &entity.User{
+		ID: r.UserID,
+	}
+}

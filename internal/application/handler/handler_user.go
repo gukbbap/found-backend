@@ -95,8 +95,21 @@ func (h UserHandler) DeleteUser(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
 }
 
-func (h UserHandler) GetLetters(e echo.Context) error {
-	return nil
+func (h UserHandler) GetLetters(c echo.Context) error {
+	req, err := utils.ParseRequest[request.GetLettersRequest](c)
+	if err != nil {
+		return err
+	}
+
+	gotLetters, err := h.userService.GetLetters(c.Request().Context(), req.UserID)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(
+		http.StatusOK,
+		response.NewGetLettersResponse(gotLetters),
+	)
 }
 
 func (h UserHandler) GetFeelings(e echo.Context) error {
